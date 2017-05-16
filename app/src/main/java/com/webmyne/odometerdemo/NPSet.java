@@ -30,7 +30,7 @@ import java.util.Arrays;
 public class NPSet extends LinearLayout {
 
     private LinearLayout llParent;
-    private int slot, odo_bg_color, bg_color, odo_text_color;
+    private int slot, odo_bg_color, bg_color, odo_text_color, background;
     private String read;
     private TextView tvOutPut;
 
@@ -61,6 +61,7 @@ public class NPSet extends LinearLayout {
 
         try {
             bg_color = typedArray.getColor(R.styleable.NPSet_bg_color, ContextCompat.getColor(context, R.color.black));
+            background = typedArray.getResourceId(R.styleable.NPSet_background, ContextCompat.getColor(context, R.color.black));
             odo_bg_color = typedArray.getColor(R.styleable.NPSet_odo_bg_color, ContextCompat.getColor(context, R.color.black));
             odo_text_color = typedArray.getColor(R.styleable.NPSet_odo_text_color, ContextCompat.getColor(context, R.color.white));
             slot = typedArray.getInt(R.styleable.NPSet_slots, 0);
@@ -109,13 +110,13 @@ public class NPSet extends LinearLayout {
         for (int i = 1; i <= slot; i++) {
             NumberPicker numberPicker = new NumberPicker(context);
             LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1);
-            lp.setMargins(2, 0, 2, 0);
+            //lp.setMargins(2, 0, 2, 0);
             lp.gravity = Gravity.CENTER;
             numberPicker.setLayoutParams(lp);
 
             setNumberPickerTextColor(numberPicker, odo_text_color);
 //            numberPicker.setBackgroundColor(odo_bg_color);
-            numberPicker.setBackgroundResource(R.drawable.gradient);
+            numberPicker.setBackgroundResource(background);
 
             numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
             numberPicker.setId(i - 1);

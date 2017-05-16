@@ -11,30 +11,30 @@
     <com.webmyne.odometerdemo.NPSet
         android:id="@+id/odometer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:bg_color="@color/black"
-        app:odo_text_color="@color/odo_text_color"
+        android:layout_height="96dp"
+        app:background="@drawable/gradient"
+        app:odo_text_color="@color/white"
         app:reading="65321"
         app:slots="5" />
 
     <TextView
         android:id="@+id/tvOutPut"
-        android:textSize="18sp"
-        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_submit"
-        android:layout_marginTop="20dp"
-        android:text="Submit"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:background="@color/black"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@color/black"
+        android:text="Submit"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
 </LinearLayout>

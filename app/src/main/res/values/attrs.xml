@@ -3,6 +3,7 @@
     <declare-styleable name="NPSet">
 
         <attr name="bg_color" format="color" />
+        <attr name="background" format="reference" />
         <attr name="odo_bg_color" format="color" />
         <attr name="odo_text_color" format="color" />
         <attr name="delimiter" format="string" />
