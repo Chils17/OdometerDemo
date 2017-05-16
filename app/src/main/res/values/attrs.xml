@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NPSet">
+
+        <attr name="bg_color" format="color" />
+        <attr name="odo_bg_color" format="color" />
+        <attr name="odo_text_color" format="color" />
+        <attr name="delimiter" format="string" />
+        <attr name="slots" format="integer" />
+        <attr name="reading" format="string" />
+
+    </declare-styleable>
+
+</resources>
