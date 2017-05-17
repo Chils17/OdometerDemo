@@ -11,11 +11,14 @@
     <com.webmyne.odometerdemo.NPSet
         android:id="@+id/odometer"
         android:layout_width="match_parent"
-        android:layout_height="96dp"
-        app:background="@drawable/gradient"
+        android:layout_height="100dp"
+        app:font="@string/lato_bold"
+        app:bg_color="@color/color_transparent"
+        app:odo_bg_color="@drawable/gradient"
         app:odo_text_color="@color/white"
-        app:reading="65321"
-        app:slots="5" />
+        app:reading="653214"
+        app:slots="6"
+        app:text_size="18sp" />
 
     <TextView
         android:id="@+id/tvOutPut"

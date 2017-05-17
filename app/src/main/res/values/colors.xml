@@ -11,8 +11,6 @@
     <color name="odo_bg_color">#565656</color>
     <color name="odo_text_color">#e2e2e2</color>
 
-
-
-
+    <color name="color_transparent">@android:color/transparent</color>
 
 </resources>
