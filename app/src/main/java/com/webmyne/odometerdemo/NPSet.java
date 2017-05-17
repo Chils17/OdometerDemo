@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -24,11 +23,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import static android.R.attr.textStyle;
 import static com.webmyne.odometerdemo.R.layout.number_picker;
 
 /**
@@ -90,7 +85,7 @@ public class NPSet extends LinearLayout {
             slot = typedArray.getInt(R.styleable.NPSet_np_slots, 0);
             read = typedArray.getString(R.styleable.NPSet_np_reading);
 
-            tfs = Typeface.createFromAsset(context.getAssets(),"Lato-Bold.ttf");
+            tfs = Typeface.createFromAsset(context.getAssets(), "Lato-Bold.ttf");
 
         } finally {
             typedArray.recycle();
@@ -290,6 +285,5 @@ public class NPSet extends LinearLayout {
 
         return stringBuilder.toString();
     }
-
 
 }
