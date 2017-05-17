@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_marginTop="20dp"
     android:orientation="vertical"
     tools:context="com.webmyne.odometerdemo.MainActivity">
 
@@ -12,13 +12,13 @@
         android:id="@+id/odometer"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:font="@string/lato_bold"
-        app:bg_color="@color/color_transparent"
-        app:odo_bg_color="@drawable/gradient"
-        app:odo_text_color="@color/white"
-        app:reading="653214"
-        app:slots="6"
-        app:text_size="18sp" />
+        app:np_background="@color/color_transparent"
+        app:np_backgroundColor="@drawable/gradient"
+        app:np_font="@string/lato_bold"
+        app:np_reading="635469"
+        app:np_slots="6"
+        app:np_textColor="@color/white"
+        app:np_textSize="18sp" />
 
     <TextView
         android:id="@+id/tvOutPut"

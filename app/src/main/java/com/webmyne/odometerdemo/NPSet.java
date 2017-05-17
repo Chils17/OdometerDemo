@@ -45,8 +45,8 @@ public class NPSet extends LinearLayout {
     private int odo_text_color;
     private int textSize;
     private String read, fontName;
-    private TextView tvOutPut;
     private String odo_bg_color3;
+    private Typeface tfs;
 
     public NPSet(Context context) {
         super(context);
@@ -69,27 +69,28 @@ public class NPSet extends LinearLayout {
         inflater.inflate(number_picker, this, true);
 
         llParent = (LinearLayout) findViewById(R.id.llParent);
-        tvOutPut = (TextView) findViewById(R.id.tvOutPut);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.NPSet);
 
         try {
-            fontName = typedArray.getString(R.styleable.NPSet_font);
-            textSize = typedArray.getDimensionPixelSize(R.styleable.NPSet_text_size, 0);
+            fontName = typedArray.getString(R.styleable.NPSet_np_font);
+            textSize = typedArray.getDimensionPixelSize(R.styleable.NPSet_np_textSize, 0);
 
-            bg_color = typedArray.getColor(R.styleable.NPSet_bg_color, ContextCompat.getColor(context, R.color.black));
+            bg_color = typedArray.getColor(R.styleable.NPSet_np_background, ContextCompat.getColor(context, R.color.black));
 
             /*background = typedArray.getResourceId(R.styleable.NPSet_main_background, R.drawable.gradient);
             background2 = typedArray.getColor(R.styleable.NPSet_main_background, ContextCompat.getColor(context, R.color.black));
             background1 = typedArray.getString(R.styleable.NPSet_main_background);*/
 
-            odo_bg_color = typedArray.getResourceId(R.styleable.NPSet_odo_bg_color,R.drawable.gradient);
+            odo_bg_color = typedArray.getResourceId(R.styleable.NPSet_np_backgroundColor, R.drawable.gradient);
             //odo_bg_color2 = typedArray.getColor(R.styleable.NPSet_odo_bg_color, ContextCompat.getColor(context, R.color.black));
-            odo_bg_color3 = typedArray.getString(R.styleable.NPSet_odo_bg_color);
+            odo_bg_color3 = typedArray.getString(R.styleable.NPSet_np_backgroundColor);
 
-            odo_text_color = typedArray.getColor(R.styleable.NPSet_odo_text_color, ContextCompat.getColor(context, R.color.white));
-            slot = typedArray.getInt(R.styleable.NPSet_slots, 0);
-            read = typedArray.getString(R.styleable.NPSet_reading);
+            odo_text_color = typedArray.getColor(R.styleable.NPSet_np_textColor, ContextCompat.getColor(context, R.color.white));
+            slot = typedArray.getInt(R.styleable.NPSet_np_slots, 0);
+            read = typedArray.getString(R.styleable.NPSet_np_reading);
+
+            tfs = Typeface.createFromAsset(context.getAssets(),"Lato-Bold.ttf");
 
         } finally {
             typedArray.recycle();
@@ -97,9 +98,9 @@ public class NPSet extends LinearLayout {
 
         llParent.setBackgroundColor(bg_color);
 
+        //createStaticNumberPicker(context);
 
         if (TextUtils.isEmpty(read) || read.length() != slot) {
-
             TextView textView = new TextView(context);
             LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             lp.gravity = Gravity.CENTER;
@@ -168,6 +169,35 @@ public class NPSet extends LinearLayout {
 
     }
 
+    private void createStaticNumberPicker(Context context) {
+
+        for (int i = 1; i <= 6; i++) {
+            NumberPicker numberPicker = new NumberPicker(context);
+            LayoutParams lp = new LayoutParams(120, LayoutParams.WRAP_CONTENT);
+            lp.setMargins(4, 0, 4, 0);
+            lp.gravity = Gravity.CENTER;
+            numberPicker.setLayoutParams(lp);
+
+            setDividerColor(numberPicker, Color.TRANSPARENT);
+
+            setStaticNumberPickerTextColor(numberPicker, Color.WHITE, tfs, 42);
+
+            numberPicker.setBackgroundResource(R.drawable.gradient);
+
+            numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            numberPicker.setId(i - 1);
+            numberPicker.setMinValue(0);
+            numberPicker.setMaxValue(9);
+
+            numberPicker.setWrapSelectorWheel(true);
+
+            numberPicker.setValue(000000);
+
+            llParent.addView(numberPicker);
+        }
+
+    }
+
     public void setNumberPickerTextColor(NumberPicker numberPicker, int color, String fontName, int textSize) {
         final int count = numberPicker.getChildCount();
         for (int i = 0; i < count; i++) {
@@ -195,6 +225,33 @@ public class NPSet extends LinearLayout {
         }
     }
 
+    public void setStaticNumberPickerTextColor(NumberPicker numberPicker, int color, Typeface typeface, int size) {
+        final int count = numberPicker.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View child = numberPicker.getChildAt(i);
+            if (child instanceof EditText) {
+                try {
+                    Field selectorWheelPaintField = numberPicker.getClass().getDeclaredField("mSelectorWheelPaint");
+                    selectorWheelPaintField.setAccessible(true);
+                    ((Paint) selectorWheelPaintField.get(numberPicker)).setColor(color);
+                    ((Paint) selectorWheelPaintField.get(numberPicker)).setTypeface(typeface);
+                    ((Paint) selectorWheelPaintField.get(numberPicker)).setTextSize(size);
+                    ((EditText) child).setTextColor(color);
+                    ((EditText) child).setTypeface(typeface);
+                    ((EditText) child).setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+
+                    numberPicker.invalidate();
+                } catch (NoSuchFieldException e) {
+                    Log.w("NumberPickerTextColor", e);
+                } catch (IllegalAccessException e) {
+                    Log.w("NumberPickerTextColor", e);
+                } catch (IllegalArgumentException e) {
+                    Log.w("NumberPickerTextColor", e);
+                }
+            }
+        }
+    }
+
     private void setDividerColor(NumberPicker picker, int color) {
 
         java.lang.reflect.Field[] pickerFields = NumberPicker.class.getDeclaredFields();
@@ -208,8 +265,7 @@ public class NPSet extends LinearLayout {
                     e.printStackTrace();
                 } catch (Resources.NotFoundException e) {
                     e.printStackTrace();
-                }
-                catch (IllegalAccessException e) {
+                } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
                 break;
